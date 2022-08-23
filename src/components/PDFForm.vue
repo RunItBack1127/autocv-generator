@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form @submit.prevent="submitForm">
         <h1>Cover Letter Form</h1>
         <div class="form-contents">
             <div class="form-contents-inner">
@@ -21,13 +21,13 @@
                 </div>
                 <div class="recruiter-name-container form-container input-container">
                     <label :class="!this.useCustomRecruiterName ? 'no-custom-name' : ''" for="recruiterName">Recruiter Name</label>
-                    <input v-model="this.recruiterName" :disabled="!this.useCustomRecruiterName" type="text" name="recruiterName" />
+                    <input :required="this.useCustomRecruiterName" v-model="this.recruiterName" :disabled="!this.useCustomRecruiterName" type="text" name="recruiterName" />
                 </div>
                 <div :class="this.processingRequest ? 'prevent-clear' : ''" class="clear-container">
                     <button @click="clearForm">Clear</button>
                 </div>
                 <div :class="this.processingRequest ? 'prevent-submit' : ''" class="submit-container">
-                    <button @click="submitForm">Submit</button>
+                    <button type="submit">Submit</button>
                 </div>
             </div>
         </div>

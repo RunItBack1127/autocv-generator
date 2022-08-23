@@ -98,7 +98,7 @@ button {
 }
 
 .dp__input {
-  padding: 5px 42.5px;
+  padding: 10px 42.5px;
   transition: none;
 }
 
