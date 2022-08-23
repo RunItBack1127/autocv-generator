@@ -146,9 +146,17 @@ form {
             }
 
             .recruiter-name-check-container {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
 
                 label {
                     margin-right: 40px;
+                }
+
+                input[type="checkbox"] {
+                    width: 20px;
+                    height: 20px;
                 }
             }
 
