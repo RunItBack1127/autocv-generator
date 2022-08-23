@@ -20,11 +20,17 @@
                 </div>
                 <div class="form-container recruiter-name-check-container">
                     <label for="recruiterNameCheck">Use custom recruiter name?</label>
-                    <input type="checkbox" name="recruiterNameCheck" />
+                    <input :checked="this.useCustomRecruiterName" @click="this.useCustomRecruiterName = !this.useCustomRecruiterName" type="checkbox" name="recruiterNameCheck" />
                 </div>
-                <div class="form-container input-container">
-                    <label :disabled="this.useCustomRecruiterName ? true : false" for="recruiterName">Recruiter Name</label>
-                    <input :disabled="this.useCustomRecruiterName ? true : false" type="text" name="recruiterName" />
+                <div class="recruiter-name-container form-container input-container">
+                    <label :class="!this.useCustomRecruiterName ? 'no-custom-name' : ''" for="recruiterName">Recruiter Name</label>
+                    <input :disabled="!this.useCustomRecruiterName" type="text" name="recruiterName" />
+                </div>
+                <div class="clear-container">
+                    <button>Clear</button>
+                </div>
+                <div class="submit-container">
+                    <button>Submit</button>
                 </div>
             </div>
         </div>
@@ -36,12 +42,11 @@ import { ref } from 'vue';
 
 export default {
     setup() {
+        const useCustomRecruiterName = ref(false);
+
         return {
-            useCustomRecruiterName: false
+            useCustomRecruiterName
         }
-    },
-    methods: {
-        
     }
 }
 </script>
@@ -52,9 +57,9 @@ form {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    width: 95%;
     max-width: 500px;
-    height: 80%;
+    height: 85%;
     border: 1px solid var(--main-color-2);
     border-radius: 50px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -80,7 +85,7 @@ form {
             justify-content: space-between;
             align-items: flex-start;
             width: 100%;
-            height: 80%;
+            height: 90%;
 
             .form-container {
                 width: 100%;
@@ -148,6 +153,50 @@ form {
 
                 label {
                     margin-right: 40px;
+                }
+            }
+
+            .recruiter-name-container {
+                input:disabled,
+                label.no-custom-name {
+                    opacity: 0.25;
+                }
+            }
+
+            .clear-container,
+            .submit-container {
+                width: 100%;
+                display: flex;
+                align-items: center;
+
+                button {
+                    border: 1px solid var(--main-color-2);
+                    border-radius: 5px;
+                    text-transform: uppercase;
+                }
+            }
+
+            .clear-container {
+                justify-content: flex-end;
+
+                button {
+                    padding: 10px 30px;
+                    background-color: var(--main-color-1);
+                    color: var(--main-color-2);
+                    letter-spacing: 0.15rem;
+                }
+            }
+
+            .submit-container {
+                justify-content: center;
+
+                button {
+                    font-size: 1.05rem;
+                    letter-spacing: 0.25rem;
+                    width: 100%;
+                    padding: 15px 0;
+                    background-color: var(--main-color-2);
+                    color: var(--main-color-1);
                 }
             }
         }

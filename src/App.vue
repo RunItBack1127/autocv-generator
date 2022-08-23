@@ -79,8 +79,12 @@ li {
   list-style: none;
 }
 
-input, textarea {
+input, textarea, button {
   font-family: Roboto, sans-serif;
   font-weight: 300;
+}
+
+button {
+  cursor: pointer;
 }
 </style>

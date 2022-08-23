@@ -39,7 +39,6 @@ button {
     border-radius: 50px;
     border: 1px solid var(--main-color-2);
     background-color: transparent;
-    cursor: pointer;
 
     svg {
         width: var(--cue-width);

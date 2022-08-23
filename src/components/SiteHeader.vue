@@ -44,6 +44,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
     nav {
         width: 75%;
@@ -105,10 +106,11 @@ header {
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            z-index: 99999;
 
             svg {
                 margin-right: 7.5%;
-                margin-bottom: 50px;
+                margin-bottom: 20px;
             }
         }
     }
