@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <header :class="this.isDarkMode ? 'use-dark-mode-header' : ''">
         <nav>
             <h1>AutoCV</h1>
             <ul>
@@ -26,20 +26,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed } from '@vue/runtime-core';
+import { useStore } from 'vuex';
 
 import DarkModeSlider from './DarkModeSlider.vue';
 
-export default defineComponent({
-    name: 'SiteHeader',
+export default {
+    setup() {
+        const appStore = useStore();
+        return {
+            isDarkMode: computed(() => appStore.state.isDarkMode)
+        }
+    },
     components: {
         DarkModeSlider
     }
-})
+}
 </script>
 
 <style scoped lang="scss">
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100px;
     background-color: var(--main-color-1);
@@ -47,6 +56,7 @@ header {
     justify-content: center;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    z-index: 99999;
 
     nav {
         width: 75%;
@@ -91,6 +101,10 @@ header {
             height: 25px;
         }
     }
+}
+
+header.use-dark-mode-header {
+    box-shadow: rgba(255, 255, 255, 0.075) 0px 3px 8px;
 }
 
 @media screen and (max-width: 992px) {

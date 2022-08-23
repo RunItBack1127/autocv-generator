@@ -58,11 +58,11 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    top: var(--form-container-top-pad);
-    left: 0;
+    margin-top: var(--form-container-top-pad);
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - var(--form-container-top-pad));
     min-height: 750px;
+    background-color: var(--main-color-1);
   }
 }
 
@@ -84,13 +84,35 @@ li {
   list-style: none;
 }
 
-input, textarea, button {
+input, textarea, button, label {
   font-family: Roboto, sans-serif;
   font-weight: 300;
 }
 
 button {
   cursor: pointer;
+}
+
+.dp__main {
+    width: 100%;
+}
+
+.dp__input {
+  padding: 5px 42.5px;
+}
+
+.dp__button {
+  display: none;
+}
+
+.dp__action_buttons {
+  width: 100%; 
+}
+
+.dp__action {
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  color: var(--main-color-2);
 }
 
 @media screen and (max-width: 411px) {

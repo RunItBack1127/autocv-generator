@@ -11,12 +11,9 @@
                     <label for="companyName">Company Name</label>
                     <input type="text" name="companyName" />
                 </div>
-                <div class="form-container date-container">
-                    <div class="label-cta-container">
-                        <label for="date">Date</label>
-                        <button>Temp</button>
-                    </div>
-                    <textarea disabled name="date" />
+                <div class="date-container form-container input-container">
+                    <label>Date</label>
+                    <DatePicker monthNameFormat="long" format="MM/dd/yyyy" v-model="this.formDate" :dark="this.isDarkMode" />
                 </div>
                 <div class="form-container recruiter-name-check-container">
                     <label for="recruiterNameCheck">Use custom recruiter name?</label>
@@ -27,10 +24,10 @@
                     <input :disabled="!this.useCustomRecruiterName" type="text" name="recruiterName" />
                 </div>
                 <div class="clear-container">
-                    <button>Clear</button>
+                    <button @click="clearForm">Clear</button>
                 </div>
                 <div class="submit-container">
-                    <button>Submit</button>
+                    <button @click="submitForm">Submit</button>
                 </div>
             </div>
         </div>
@@ -38,15 +35,37 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+
+import DatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 export default {
     setup() {
+        const appStore = useStore();
+        const formDate = ref(new Date());
         const useCustomRecruiterName = ref(false);
 
         return {
-            useCustomRecruiterName
+            useCustomRecruiterName,
+            formDate,
+            isDarkMode: computed(() => appStore.state.isDarkMode)
         }
+    },
+    methods: {
+        showDatePicker(e: Event) {
+            e.preventDefault();
+        },
+        clearForm(e: Event) {
+            e.preventDefault();
+        },
+        submitForm(e: Event) {
+            e.preventDefault();
+        }
+    },
+    components: {
+        DatePicker
     }
 }
 </script>
@@ -68,6 +87,7 @@ form {
     h1 {
         text-align: center;
         background-color: var(--main-color-1);
+        color: var(--main-color-2);
         font-size: 1.75rem;
         padding: 0 30px;
         transform: translateY(-50%);
@@ -94,6 +114,7 @@ form {
                 label {
                     font-weight: 400;
                     font-size: 1.1rem;
+                    color: var(--main-color-2);
                 }
 
                 input {
@@ -101,6 +122,8 @@ form {
                     border-radius: 12px;
                     font-size: 1rem;
                     border: 1px solid var(--main-color-2);
+                    background-color: var(--main-color-1);
+                    color: var(--main-color-2);
                 }
 
                 input:not([type="checkbox"]) {
@@ -120,33 +143,6 @@ form {
 
                 label {
                     margin-bottom: 15px;
-                }
-            }
-
-            .date-container {
-
-                .label-cta-container {
-                    margin-bottom: 10px;
-
-                    label {
-                        margin-right: 25px;
-                    }
-                }
-
-                textarea {
-                    resize: none;
-                    font-size: 1rem;
-                    width: 200px;
-                    height: 40px;
-                    padding: 0.5rem 10px;
-                    border: 1px solid var(--main-color-2);
-                    border-radius: 12px;
-                    overflow-y: hidden;
-                    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-                }
-
-                textarea:disabled {
-                    opacity: 0.5;
                 }
             }
 
