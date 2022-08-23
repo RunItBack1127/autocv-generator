@@ -7,11 +7,11 @@
   </main>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { defineComponent } from 'vue';
 
-import SiteHeader from '@/components/SiteHeader.vue';
-import PDFForm from '@/components/PDFForm.vue';
+import SiteHeader from './components/SiteHeader.vue';
+import PDFForm from './components/PDFForm.vue';
 
 export default defineComponent({
   name: 'App',
@@ -32,9 +32,27 @@ export default defineComponent({
 }
 
 #app {
+  --main-color-1: #fff;
+  --main-color-2: #000;
+
   font-family: Roboto, sans-serif;
   font-size: 16px;
-  background: #fff;
-  color: #000;
+  background: var(--main-color-1);
+  color: var(--main-color-2);
+}
+
+#app.dark-mode-enabled {
+  --main-color-1: #151515;
+  --main-color-2: #fff;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  color: var(--main-color-2);
+}
+
+li {
+  list-style: none;
 }
 </style>
