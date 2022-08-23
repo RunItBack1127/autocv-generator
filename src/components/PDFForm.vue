@@ -58,6 +58,7 @@ form {
     justify-content: flex-start;
     align-items: center;
     width: 95%;
+    min-width: var(--minimum-site-width);
     max-width: 500px;
     height: 85%;
     border: 1px solid var(--main-color-2);
@@ -69,7 +70,7 @@ form {
         background-color: var(--main-color-1);
         font-size: 1.75rem;
         padding: 0 30px;
-        transform: translateX(-15%) translateY(-50%);
+        transform: translateY(-50%);
     }
 
     .form-contents {
@@ -199,6 +200,20 @@ form {
                     color: var(--main-color-1);
                 }
             }
+        }
+    }
+}
+
+@media screen and (max-width: 411px) {
+    form {
+        height: 87.5%;
+
+        h1 {
+            padding: 0 20px;
+        }
+
+        .form-contents {
+            width: 85%;
         }
     }
 }

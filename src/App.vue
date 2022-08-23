@@ -49,15 +49,20 @@ export default {
 }
 
 main {
+
+  --form-container-top-pad: 100px;
+  --minimum-site-width: 360px;
+  min-width: var(--minimum-site-width);
+
   section.form-container {
-    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 100px;
+    top: var(--form-container-top-pad);
     left: 0;
     width: 100%;
     height: calc(100vh - 100px);
+    min-height: 750px;
   }
 }
 
@@ -86,5 +91,11 @@ input, textarea, button {
 
 button {
   cursor: pointer;
+}
+
+@media screen and (max-width: 411px) {
+  main {
+    --form-container-top-pad: 75px;
+  }
 }
 </style>
