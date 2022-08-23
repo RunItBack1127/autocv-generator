@@ -48,6 +48,19 @@ export default {
   color: var(--main-color-2);
 }
 
+main {
+  section.form-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 100px);
+  }
+}
+
 main.dark-mode-enabled {
   --main-color-1: #151515;
   --main-color-2: #fff;
@@ -64,5 +77,10 @@ a, span {
 
 li {
   list-style: none;
+}
+
+input, textarea {
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
 }
 </style>
