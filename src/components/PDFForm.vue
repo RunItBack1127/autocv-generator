@@ -5,15 +5,15 @@
             <div class="form-contents-inner">
                 <div class="form-container input-container">
                     <label for="jobTitle">Job Title</label>
-                    <input type="text" name="jobTitle" />
+                    <input required v-model="this.jobTitle" type="text" name="jobTitle" />
                 </div>
                 <div class="form-container input-container">
                     <label for="companyName">Company Name</label>
-                    <input type="text" name="companyName" />
+                    <input required v-model="this.companyName" type="text" name="companyName" />
                 </div>
                 <div class="date-container form-container input-container">
-                    <label>Date</label>
-                    <DatePicker monthNameFormat="long" format="MM/dd/yyyy" v-model="this.formDate" :dark="this.isDarkMode" />
+                    <label for="date">Date</label>
+                    <DatePicker required name="date" monthNameFormat="long" format="MM/dd/yyyy" v-model="this.formDate" :dark="this.isDarkMode" />
                 </div>
                 <div class="form-container recruiter-name-check-container">
                     <label for="recruiterNameCheck">Use custom recruiter name?</label>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="recruiter-name-container form-container input-container">
                     <label :class="!this.useCustomRecruiterName ? 'no-custom-name' : ''" for="recruiterName">Recruiter Name</label>
-                    <input :disabled="!this.useCustomRecruiterName" type="text" name="recruiterName" />
+                    <input v-model="this.recruiterName" :disabled="!this.useCustomRecruiterName" type="text" name="recruiterName" />
                 </div>
                 <div class="clear-container">
                     <button @click="clearForm">Clear</button>
@@ -44,10 +44,17 @@ import '@vuepic/vue-datepicker/dist/main.css';
 export default {
     setup() {
         const appStore = useStore();
+
+        const jobTitle = ref("");
+        const companyName = ref("");
+        const recruiterName = ref("");
         const formDate = ref(new Date());
         const useCustomRecruiterName = ref(false);
 
         return {
+            jobTitle,
+            companyName,
+            recruiterName,
             useCustomRecruiterName,
             formDate,
             isDarkMode: computed(() => appStore.state.isDarkMode)
@@ -56,11 +63,24 @@ export default {
     methods: {
         clearForm(e: Event) {
             e.preventDefault();
-            // TODO
+
+            this.jobTitle = "";
+            this.companyName = "";
+            this.recruiterName = "";
+
+            this.formDate = new Date();
+            this.useCustomRecruiterName = false;
         },
         submitForm(e: Event) {
             e.preventDefault();
-            // TODO
+            
+            const params = new URLSearchParams({
+                jobTitle: this.jobTitle,
+                companyName: this.companyName,
+                date: this.formDate.toString(),
+                hasRecruiterName: `${this.useCustomRecruiterName}`,
+                recruiterName: this.recruiterName
+            });
         }
     },
     components: {
@@ -161,6 +181,12 @@ form {
             }
 
             .recruiter-name-container {
+                input, label {
+                    transition: opacity 200ms ease-in,
+                                opacity 150ms ease-out;
+                    will-change: opacity;
+                }
+
                 input:disabled,
                 label.no-custom-name {
                     opacity: 0.25;
