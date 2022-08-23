@@ -54,14 +54,13 @@ export default {
         }
     },
     methods: {
-        showDatePicker(e: Event) {
-            e.preventDefault();
-        },
         clearForm(e: Event) {
             e.preventDefault();
+            // TODO
         },
         submitForm(e: Event) {
             e.preventDefault();
+            // TODO
         }
     },
     components: {
