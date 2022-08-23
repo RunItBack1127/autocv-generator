@@ -1,6 +1,6 @@
 <template>
     <form>
-        <h1>Site Form Header</h1>
+        <h1>Cover Letter Form</h1>
         <div class="form-contents">
             <div class="form-contents-inner">
                 <div class="form-container input-container">
@@ -23,10 +23,10 @@
                     <label :class="!this.useCustomRecruiterName ? 'no-custom-name' : ''" for="recruiterName">Recruiter Name</label>
                     <input v-model="this.recruiterName" :disabled="!this.useCustomRecruiterName" type="text" name="recruiterName" />
                 </div>
-                <div class="clear-container">
+                <div :class="this.processingRequest ? 'prevent-clear' : ''" class="clear-container">
                     <button @click="clearForm">Clear</button>
                 </div>
-                <div class="submit-container">
+                <div :class="this.processingRequest ? 'prevent-submit' : ''" class="submit-container">
                     <button @click="submitForm">Submit</button>
                 </div>
             </div>
@@ -50,6 +50,7 @@ export default {
         const recruiterName = ref("");
         const formDate = ref(new Date());
         const useCustomRecruiterName = ref(false);
+        const processingRequest = ref(false);
 
         return {
             jobTitle,
@@ -57,6 +58,7 @@ export default {
             recruiterName,
             useCustomRecruiterName,
             formDate,
+            processingRequest,
             isDarkMode: computed(() => appStore.state.isDarkMode)
         }
     },
@@ -81,6 +83,9 @@ export default {
                 hasRecruiterName: `${this.useCustomRecruiterName}`,
                 recruiterName: this.recruiterName
             });
+
+            this.processingRequest = true;
+            setTimeout(() => this.processingRequest = false, 1000);
         }
     },
     components: {
@@ -203,6 +208,15 @@ form {
                     border: 1px solid var(--main-color-2);
                     border-radius: 5px;
                     text-transform: uppercase;
+                }
+            }
+
+            .clear-container.prevent-clear,
+            .submit-container.prevent-submit {
+
+                button {
+                    pointer-events: none;
+                    opacity: 0.1;
                 }
             }
 
