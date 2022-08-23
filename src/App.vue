@@ -1,5 +1,5 @@
 <template>
-  <main class="site-container">
+  <main :class="this.isDarkMode ? 'dark-mode-enabled' : ''" class="site-container">
     <SiteHeader />
     <section class="form-container">
       <PDFForm />
@@ -8,18 +8,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
 
 import SiteHeader from './components/SiteHeader.vue';
 import PDFForm from './components/PDFForm.vue';
 
-export default defineComponent({
-  name: 'App',
+export default {
+  setup() {
+    const appStore = useStore();
+
+    return {
+      isDarkMode: computed(() => appStore.state.isDarkMode)
+    }
+  },
   components: {
     SiteHeader,
     PDFForm
   }
-});
+}
 </script>
 
 <style lang="scss">
@@ -41,15 +48,18 @@ export default defineComponent({
   color: var(--main-color-2);
 }
 
-#app.dark-mode-enabled {
+main.dark-mode-enabled {
   --main-color-1: #151515;
   --main-color-2: #fff;
 }
 
 a {
-  display: block;
   text-decoration: none;
   color: var(--main-color-2);
+}
+
+a, span {
+  display: block;
 }
 
 li {
